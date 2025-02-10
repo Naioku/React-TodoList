@@ -31,13 +31,15 @@ const PROJECTS = [
     }
 ]
 
+let lastUsedId = 0;
+
 function App() {
     const [projectsState, setProjectsState] = useState({
         selectedProjectId: undefined,
         projects: [...PROJECTS]
     });
 
-    function createNewProject() {
+    function startNewProjectCreation() {
         setProjectsState(prevState => ({
             ...prevState,
             selectedProjectId: null
@@ -53,7 +55,7 @@ function App() {
 
     function addNewProject(name, description, dueDate) {
         setProjectsState(prevState => {
-            const newProjectId = prevState.projects.length;
+            const newProjectId = lastUsedId++;
             return ({
                 ...prevState,
                 projects: [
@@ -82,7 +84,6 @@ function App() {
         setProjectsState(prevState => {
             const newProjects = prevState.projects.filter(project => project.id !== id);
             return {
-                ...prevState,
                 projects: newProjects,
                 selectedProjectId: undefined
             };
@@ -92,7 +93,7 @@ function App() {
     let mainContent;
 
     if (projectsState.selectedProjectId === undefined) {
-        mainContent =  <NoProjectSelected onButtonClicked={createNewProject} />
+        mainContent =  <NoProjectSelected onButtonClicked={startNewProjectCreation} />
     }
     else if (projectsState.selectedProjectId === null) {
         mainContent = <NewProjectForm
@@ -101,14 +102,15 @@ function App() {
         />
     }
     else {
-        mainContent = <ProjectDetails onDelete={deleteProject} {...projectsState.projects[projectsState.selectedProjectId]} />
+        const project = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
+        mainContent = <ProjectDetails onDelete={deleteProject} project={project} />
     }
 
     return (
         <>
             <aside>
                 <h2>Your projects</h2>
-                <button onClick={createNewProject}>+ Add project</button>
+                <button onClick={startNewProjectCreation}>+ Add project</button>
                 {projectsState.projects.map((project, i) => <ProjectName
                         key={i}
                         project={project}
