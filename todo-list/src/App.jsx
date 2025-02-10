@@ -51,18 +51,37 @@ function App() {
         }));
     }
 
-    function handleSaveClicked() {
-
+    function handleSaveClicked(name, description, dueDate) {
+        setProjectsState(prevState => {
+            const newProjectId = prevState.projects.length;
+            return ({
+                ...prevState,
+                projects: [
+                    ...prevState.projects,
+                    {
+                        id: newProjectId,
+                        name: name,
+                        dueDate: dueDate,
+                        description: description,
+                        tasks: []
+                    }
+                ],
+                selectedProjectId: newProjectId
+            });
+        });
     }
 
     function handleCancelClicked() {
-
+        setProjectsState(prevState => ({
+            ...prevState,
+            selectedProjectId: undefined
+        }));
     }
 
     let mainContent;
 
     if (projectsState.selectedProjectId === undefined) {
-        mainContent =  <NoProjectSelected />
+        mainContent =  <NoProjectSelected onButtonClicked={handleNewProjectClicked} />
     }
     else if (projectsState.selectedProjectId === null) {
         mainContent = <NewProjectForm

@@ -11,7 +11,11 @@ export default function NewProjectForm({onClickedCancel, onClickedSave}) {
     }
 
     function handleClickSave() {
-        onClickedSave();
+        onClickedSave(
+            inputName.current.value,
+            inputDescription.current.value,
+            inputDueDate.current.value
+        );
     }
 
     return <div>
