@@ -1,5 +1,5 @@
-﻿export default function ProjectName({name}) {
-    return <div>
-        {name}
-    </div>
+﻿export default function ProjectName({project, onClick}) {
+    return <button onClick={() => onClick(project.id)}>
+        {project.name}
+    </button>
 }
