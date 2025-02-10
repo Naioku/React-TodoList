@@ -78,6 +78,17 @@ function App() {
         }));
     }
 
+    function deleteProject(id) {
+        setProjectsState(prevState => {
+            const newProjects = prevState.projects.filter(project => project.id !== id);
+            return {
+                ...prevState,
+                projects: newProjects,
+                selectedProjectId: undefined
+            };
+        });
+    }
+
     let mainContent;
 
     if (projectsState.selectedProjectId === undefined) {
@@ -85,12 +96,12 @@ function App() {
     }
     else if (projectsState.selectedProjectId === null) {
         mainContent = <NewProjectForm
-            onClickedCancel={rejectProjectCreation}
-            onClickedSave={addNewProject}
+            onCancel={rejectProjectCreation}
+            onSave={addNewProject}
         />
     }
     else {
-        mainContent = <ProjectDetails {...projectsState.projects[projectsState.selectedProjectId]} />
+        mainContent = <ProjectDetails onDelete={deleteProject} {...projectsState.projects[projectsState.selectedProjectId]} />
     }
 
     return (

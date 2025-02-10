@@ -2,17 +2,17 @@
 import {useRef} from "react";
 import PropTypes from "prop-types";
 
-export default function NewProjectForm({onClickedCancel, onClickedSave}) {
+export default function NewProjectForm({onCancel, onSave}) {
     const inputName = useRef();
     const inputDescription = useRef();
     const inputDueDate = useRef();
 
     function handleClickCancel() {
-        onClickedCancel();
+        onCancel();
     }
 
     function handleClickSave() {
-        onClickedSave(
+        onSave(
             inputName.current.value,
             inputDescription.current.value,
             inputDueDate.current.value
@@ -31,6 +31,6 @@ export default function NewProjectForm({onClickedCancel, onClickedSave}) {
 }
 
 NewProjectForm.propTypes = {
-    onClickedCancel: PropTypes.func.isRequired,
-    onClickedSave: PropTypes.func.isRequired
+    onCancel: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired
 }
