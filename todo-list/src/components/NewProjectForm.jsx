@@ -1,5 +1,6 @@
 ﻿import Input from "./Input.jsx";
 import {useRef} from "react";
+import PropTypes from "prop-types";
 
 export default function NewProjectForm({onClickedCancel, onClickedSave}) {
     const inputName = useRef();
@@ -27,4 +28,9 @@ export default function NewProjectForm({onClickedCancel, onClickedSave}) {
         <Input ref={inputDescription} label={"Description"} type="text" />
         <Input ref={inputDueDate} label={"Due date"} type="date" />
     </div>
+}
+
+NewProjectForm.propTypes = {
+    onClickedCancel: PropTypes.func.isRequired,
+    onClickedSave: PropTypes.func.isRequired
 }

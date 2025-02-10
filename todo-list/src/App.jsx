@@ -37,21 +37,21 @@ function App() {
         projects: [...PROJECTS]
     });
 
-    function handleNewProjectClicked() {
+    function createNewProject() {
         setProjectsState(prevState => ({
             ...prevState,
             selectedProjectId: null
         }));
     }
 
-    function handleProjectNameClicked(id) {
+    function selectProject(id) {
         setProjectsState(prevState => ({
             ...prevState,
             selectedProjectId: id
         }));
     }
 
-    function handleSaveClicked(name, description, dueDate) {
+    function addNewProject(name, description, dueDate) {
         setProjectsState(prevState => {
             const newProjectId = prevState.projects.length;
             return ({
@@ -71,7 +71,7 @@ function App() {
         });
     }
 
-    function handleCancelClicked() {
+    function rejectProjectCreation() {
         setProjectsState(prevState => ({
             ...prevState,
             selectedProjectId: undefined
@@ -81,12 +81,12 @@ function App() {
     let mainContent;
 
     if (projectsState.selectedProjectId === undefined) {
-        mainContent =  <NoProjectSelected onButtonClicked={handleNewProjectClicked} />
+        mainContent =  <NoProjectSelected onButtonClicked={createNewProject} />
     }
     else if (projectsState.selectedProjectId === null) {
         mainContent = <NewProjectForm
-            onClickedCancel={handleCancelClicked}
-            onClickedSave={handleSaveClicked}
+            onClickedCancel={rejectProjectCreation}
+            onClickedSave={addNewProject}
         />
     }
     else {
@@ -97,11 +97,11 @@ function App() {
         <>
             <aside>
                 <h2>Your projects</h2>
-                <button onClick={handleNewProjectClicked}>+ Add project</button>
+                <button onClick={createNewProject}>+ Add project</button>
                 {projectsState.projects.map((project, i) => <ProjectName
                         key={i}
                         project={project}
-                        onClick={handleProjectNameClicked}
+                        onClick={selectProject}
                 />)}
             </aside>
 

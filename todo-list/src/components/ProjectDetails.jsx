@@ -1,4 +1,5 @@
 ﻿import Task from "./Task.jsx";
+import PropTypes from "prop-types";
 
 export default function ProjectDetails(
     {
@@ -26,4 +27,11 @@ export default function ProjectDetails(
             </ul>
         </section>
     </div>
+}
+
+ProjectDetails.propTypes = {
+    name: PropTypes.string.isRequired,
+    dueDate: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    tasks: PropTypes.array.isRequired
 }
