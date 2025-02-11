@@ -31,7 +31,7 @@ const PROJECTS = [
     }
 ]
 
-let lastUsedId = 0;
+let lastUsedId = 1;
 
 function App() {
     const [projectsState, setProjectsState] = useState({
@@ -84,6 +84,7 @@ function App() {
         setProjectsState(prevState => {
             const newProjects = prevState.projects.filter(project => project.id !== id);
             return {
+                ...prevState,
                 projects: newProjects,
                 selectedProjectId: undefined
             };
