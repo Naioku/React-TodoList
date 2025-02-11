@@ -1,6 +1,8 @@
 ﻿import Task from "./Task.jsx";
 import PropTypes from "prop-types";
 import {useRef} from "react";
+import Button from "./Button.jsx";
+import {H2, H3} from "./Headers.jsx";
 
 export default function ProjectDetails(
     {
@@ -28,16 +30,16 @@ export default function ProjectDetails(
     return <div>
         <header>
             <div>
-                <h2>{project.name}</h2>
-                <button onClick={handleClickedDelete}>Delete</button>
+                <H2>{project.name}</H2>
+                <Button onClick={handleClickedDelete}>Delete</Button>
             </div>
             <p>{project.dueDate}</p>
             <p>{project.description}</p>
         </header>
         <section>
-            <h3>Tasks</h3>
+            <H3>Tasks</H3>
             <input ref={inputTaskName} type="text" />
-            <button onClick={handleClickedAddTask}>Add Task</button>
+            <Button onClick={handleClickedAddTask}>Add Task</Button>
             <ul>
                 {project.tasks.map((task, i) => <Task key={i} task={task} onDelete={handleDeleteTask}/>)}
             </ul>

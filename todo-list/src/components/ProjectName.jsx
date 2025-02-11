@@ -1,9 +1,10 @@
 ﻿import PropTypes from "prop-types";
+import Button from "./Button.jsx";
 
 export default function ProjectName({project, onClick}) {
-    return <button onClick={() => onClick(project.id)}>
+    return <Button onClick={() => onClick(project.id)}>
         {project.name}
-    </button>
+    </Button>
 }
 
 ProjectName.propTypes = {

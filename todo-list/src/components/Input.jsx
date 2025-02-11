@@ -1,8 +1,9 @@
 ﻿import PropTypes from "prop-types";
+import {H3} from "./Headers.jsx";
 
 export default function Input({label, ...props}) {
     return <div>
-        <h3>{label}</h3>
+        <H3>{label}</H3>
         <input {...props} />
     </div>
 }

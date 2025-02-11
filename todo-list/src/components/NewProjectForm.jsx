@@ -1,6 +1,7 @@
 ﻿import Input from "./Input.jsx";
 import {useRef} from "react";
 import PropTypes from "prop-types";
+import Button from "./Button.jsx";
 
 export default function NewProjectForm({onCancel, onSave}) {
     const inputName = useRef();
@@ -25,8 +26,8 @@ export default function NewProjectForm({onCancel, onSave}) {
 
     return <div>
         <div>
-            <button onClick={handleClickCancel}>Cancel</button>
-            <button onClick={handleClickSave}>Save</button>
+            <Button onClick={handleClickCancel}>Cancel</Button>
+            <Button onClick={handleClickSave}>Save</Button>
         </div>
         <Input ref={inputName} label={"Name"} type="text" />
         <Input ref={inputDescription} label={"Description"} type="text" />

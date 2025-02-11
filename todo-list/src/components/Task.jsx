@@ -1,4 +1,5 @@
 ﻿import PropTypes from "prop-types";
+import Button from "./Button.jsx";
 
 export default function Task({task, onDelete}) {
     function handleClickedDelete() {
@@ -7,7 +8,7 @@ export default function Task({task, onDelete}) {
 
     return <li>
         <span>{task.name}</span>
-        <button onClick={handleClickedDelete}>Delete</button>
+        <Button onClick={handleClickedDelete}>Delete</Button>
     </li>
 }
 
