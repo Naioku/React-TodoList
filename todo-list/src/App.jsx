@@ -5,38 +5,39 @@ import NewProjectForm from "./components/NewProjectForm.jsx";
 import NoProjectSelected from "./components/NoProjectSelected.jsx";
 import {useState} from "react";
 
-const PROJECTS = [
-    {
-        id: 0,
-        name: "Project 1",
-        dueDate: "2020-05-01",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
-        tasks: [
-            { name: "Task 1" },
-            { name: "Task 2" },
-            { name: "Task 3" },
-            { name: "Task 4" },
-            { name: "Task 5" },
-        ]
-    },
-    {
-        id: 1,
-        name: "Project 2",
-        dueDate: "2020-05-01",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
-        tasks: [
-            { name: "Task 1" },
-            { name: "Task 2" }
-        ]
-    }
-]
+// const PROJECTS = [
+//     {
+//         id: 0,
+//         name: "Project 1",
+//         dueDate: "2020-05-01",
+//         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
+//         tasks: [
+//             { id: 0, name: "Task 1"},
+//             { id: 1, name: "Task 2"},
+//             { id: 2, name: "Task 3"},
+//             { id: 3, name: "Task 4"},
+//             { id: 4, name: "Task 5"},
+//         ]
+//     },
+//     {
+//         id: 1,
+//         name: "Project 2",
+//         dueDate: "2020-05-01",
+//         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
+//         tasks: [
+//             { id: 0, name: "Task 1"},
+//             { id: 1, name: "Task 2"}
+//         ]
+//     }
+// ]
 
 let lastUsedId = 1;
 
 function App() {
     const [projectsState, setProjectsState] = useState({
         selectedProjectId: undefined,
-        projects: [...PROJECTS]
+        // projects: [...PROJECTS]
+        projects: []
     });
 
     function startNewProjectCreation() {
@@ -91,13 +92,32 @@ function App() {
         });
     }
 
-    function addNewTask(projectId, taskName) {
+    function addNewTask(projectId, task) {
         setProjectsState(prevState => {
             const newProjects = prevState.projects.map(prevProject => {
                 let newProject = prevProject;
 
                 if (prevProject.id === projectId) {
-                    newProject = {...prevProject, tasks: [...prevProject.tasks, {name: taskName}]}
+                    newProject = {...prevProject, tasks: [...prevProject.tasks, task]}
+                }
+
+                return newProject;
+            })
+
+            return {
+                ...prevState,
+                projects: newProjects,
+            };
+        });
+    }
+
+    function deleteTask(projectId, id) {
+        setProjectsState(prevState => {
+            const newProjects = prevState.projects.map(prevProject => {
+                let newProject = prevProject;
+
+                if (prevProject.id === projectId) {
+                    newProject = {...prevProject, tasks: [...prevProject.tasks.filter(task => task.id !== id)]}
                 }
 
                 return newProject;
@@ -123,7 +143,12 @@ function App() {
     }
     else {
         const project = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
-        mainContent = <ProjectDetails onDelete={deleteProject} onAddTask={addNewTask} project={project} />
+        mainContent = <ProjectDetails
+            project={project}
+            onDelete={deleteProject}
+            onAddTask={addNewTask}
+            onDeleteTask={deleteTask}
+        />
     }
 
     return (

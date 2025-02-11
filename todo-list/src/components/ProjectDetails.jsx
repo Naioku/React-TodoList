@@ -1,14 +1,16 @@
 ﻿import Task from "./Task.jsx";
 import PropTypes from "prop-types";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 
 export default function ProjectDetails(
     {
         project,
         onDelete,
-        onAddTask
+        onAddTask,
+        onDeleteTask,
     }
 ) {
+    const [lastUsedTaskId, setLastUsedTaskId] = useState(-1);
     const inputTaskName = useRef();
 
     function handleClickedDelete() {
@@ -16,7 +18,13 @@ export default function ProjectDetails(
     }
 
     function handleClickedAddTask() {
-        onAddTask(project.id, inputTaskName.current.value);
+        const newTaskId = lastUsedTaskId + 1
+        onAddTask(project.id, {id: newTaskId, name: inputTaskName.current.value});
+        setLastUsedTaskId(newTaskId);
+    }
+
+    function handleDeleteTask(id) {
+        onDeleteTask(project.id, id);
     }
 
     return <div>
@@ -33,7 +41,7 @@ export default function ProjectDetails(
             <input ref={inputTaskName} type="text" />
             <button onClick={handleClickedAddTask}>Add Task</button>
             <ul>
-                {project.tasks.map((task, i) => <Task key={i} name={task.name}/>)}
+                {project.tasks.map((task, i) => <Task key={i} task={task} onDelete={handleDeleteTask}/>)}
             </ul>
         </section>
     </div>
@@ -42,5 +50,6 @@ export default function ProjectDetails(
 ProjectDetails.propTypes = {
     project: PropTypes.object.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onAddTask: PropTypes.func.isRequired
+    onAddTask: PropTypes.func.isRequired,
+    onDeleteTask: PropTypes.func.isRequired
 }

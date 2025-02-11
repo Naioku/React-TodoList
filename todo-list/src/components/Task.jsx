@@ -1,12 +1,17 @@
 ﻿import PropTypes from "prop-types";
 
-export default function Task({name}) {
+export default function Task({task, onDelete}) {
+    function handleClickedDelete() {
+        onDelete(task.id);
+    }
+
     return <li>
-        <span>{name}</span>
-        <button>Clear</button>
+        <span>{task.name}</span>
+        <button onClick={handleClickedDelete}>Delete</button>
     </li>
 }
 
 Task.propTypes = {
-    name: PropTypes.string.isRequired
+    task: PropTypes.object.isRequired,
+    onDelete: PropTypes.func.isRequired,
 }
