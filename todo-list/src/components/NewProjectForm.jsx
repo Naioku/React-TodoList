@@ -13,9 +13,13 @@ export default function NewProjectForm({onCancel, onSave}) {
 
     function handleClickSave() {
         onSave(
-            inputName.current.value,
-            inputDescription.current.value,
-            inputDueDate.current.value
+            {
+                name: inputName.current.value,
+                description: inputDescription.current.value,
+                dueDate: inputDueDate.current.value,
+                tasks: [],
+                lastUsedTaskId: -1
+            }
         );
     }
 

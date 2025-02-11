@@ -17,7 +17,8 @@ import {useState} from "react";
 //             { id: 2, name: "Task 3"},
 //             { id: 3, name: "Task 4"},
 //             { id: 4, name: "Task 5"},
-//         ]
+//         ],
+//         lastUsedTaskId: 4
 //     },
 //     {
 //         id: 1,
@@ -27,7 +28,8 @@ import {useState} from "react";
 //         tasks: [
 //             { id: 0, name: "Task 1"},
 //             { id: 1, name: "Task 2"}
-//         ]
+//         ],
+//         lastUsedTaskId: 1
 //     }
 // ]
 
@@ -54,20 +56,15 @@ function App() {
         }));
     }
 
-    function addNewProject(name, description, dueDate) {
+    function addNewProject(project) {
         setProjectsState(prevState => {
             const newProjectId = lastUsedId++;
+            project.id = newProjectId
             return ({
                 ...prevState,
                 projects: [
                     ...prevState.projects,
-                    {
-                        id: newProjectId,
-                        name: name,
-                        dueDate: dueDate,
-                        description: description,
-                        tasks: []
-                    }
+                    project
                 ],
                 selectedProjectId: newProjectId
             });
@@ -92,13 +89,13 @@ function App() {
         });
     }
 
-    function addNewTask(projectId, task) {
+    function addNewTask(projectId, task, lastUsedTaskId) {
         setProjectsState(prevState => {
             const newProjects = prevState.projects.map(prevProject => {
                 let newProject = prevProject;
 
                 if (prevProject.id === projectId) {
-                    newProject = {...prevProject, tasks: [...prevProject.tasks, task]}
+                    newProject = {...prevProject, tasks: [...prevProject.tasks, task], lastUsedTaskId: lastUsedTaskId};
                 }
 
                 return newProject;

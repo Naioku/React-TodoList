@@ -1,6 +1,6 @@
 ﻿import Task from "./Task.jsx";
 import PropTypes from "prop-types";
-import {useRef, useState} from "react";
+import {useRef} from "react";
 
 export default function ProjectDetails(
     {
@@ -10,7 +10,6 @@ export default function ProjectDetails(
         onDeleteTask,
     }
 ) {
-    const [lastUsedTaskId, setLastUsedTaskId] = useState(-1);
     const inputTaskName = useRef();
 
     function handleClickedDelete() {
@@ -18,9 +17,8 @@ export default function ProjectDetails(
     }
 
     function handleClickedAddTask() {
-        const newTaskId = lastUsedTaskId + 1
-        onAddTask(project.id, {id: newTaskId, name: inputTaskName.current.value});
-        setLastUsedTaskId(newTaskId);
+        const newTaskId = project.lastUsedTaskId + 1
+        onAddTask(project.id, {id: newTaskId, name: inputTaskName.current.value}, newTaskId);
     }
 
     function handleDeleteTask(id) {
