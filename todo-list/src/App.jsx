@@ -91,6 +91,25 @@ function App() {
         });
     }
 
+    function addNewTask(projectId, taskName) {
+        setProjectsState(prevState => {
+            const newProjects = prevState.projects.map(prevProject => {
+                let newProject = prevProject;
+
+                if (prevProject.id === projectId) {
+                    newProject = {...prevProject, tasks: [...prevProject.tasks, {name: taskName}]}
+                }
+
+                return newProject;
+            })
+
+            return {
+                ...prevState,
+                projects: newProjects,
+            };
+        });
+    }
+
     let mainContent;
 
     if (projectsState.selectedProjectId === undefined) {
@@ -104,7 +123,7 @@ function App() {
     }
     else {
         const project = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
-        mainContent = <ProjectDetails onDelete={deleteProject} project={project} />
+        mainContent = <ProjectDetails onDelete={deleteProject} onAddTask={addNewTask} project={project} />
     }
 
     return (
