@@ -10,7 +10,7 @@ const Container = styled.div`
 `
 
 const ButtonProject = styled(Button)`
-    background-color: ${props => (props.$isExpanded ? "transparent" : "#282828")};
+    ${props => (props.$isExpanded ? "background-color: transparent" : "")};
     ${props => (props.$isExpanded ? "" : "border-radius: 0")};
 `
 
