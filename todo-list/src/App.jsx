@@ -1,22 +1,14 @@
-import ProjectName from "./components/ProjectName.jsx";
 import ProjectDetails from "./components/ProjectDetails.jsx";
 import NewProjectForm from "./components/NewProjectForm.jsx";
 import NoProjectSelected from "./components/NoProjectSelected.jsx";
 import {useState} from "react";
 import {styled} from "styled-components";
-import Button from "./components/Button.jsx";
-
-const Aside = styled.aside`
-    float: left;
-    width: 20%;
-    min-height: 100vh;
-    padding: 1rem;
-    background-color: #535bf2;
-`
+import Sidebar from "./components/Sidebar.jsx";
 
 const Main = styled.main`
-    float: left;
-    padding: 1rem;
+    padding: 20px;
+    flex: 1;
+    margin-left: 60px;
 `
 
 const PROJECTS = [
@@ -164,15 +156,11 @@ function App() {
 
     return (
         <>
-            <Aside>
-                <h2>Your projects</h2>
-                <Button onClick={startNewProjectCreation}>+ Add project</Button>
-                {projectsState.projects.map((project, i) => <ProjectName
-                        key={i}
-                        project={project}
-                        onClick={selectProject}
-                />)}
-            </Aside>
+            <Sidebar
+                projects={projectsState.projects}
+                onAddProject={startNewProjectCreation}
+                onProjectSelected={selectProject}
+            />
 
             <Main id="mainView">
                 {mainContent}

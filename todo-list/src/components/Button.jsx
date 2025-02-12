@@ -7,17 +7,12 @@ const Button = styled.button`
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: #292929;
     cursor: pointer;
-    transition: border-color 0.25s;
+    transition: background-color 0.3s;
 
     &:hover {
-        border-color: #646cff;
-    }
-
-    &:focus,
-    &:focus-visible {
-        outline: 4px auto -webkit-focus-ring-color;
+        background-color: #393939;
     }
 
     @media (prefers-color-scheme: light) {
