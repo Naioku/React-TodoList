@@ -6,6 +6,10 @@ import {H2, H3} from "./Headers.jsx";
 import Input from "./Input.jsx";
 import {styled} from "styled-components";
 
+const ContainerMain = styled.div`
+    max-width: 60rem;
+`
+
 const ContainerHeader = styled.div`
     display: flex;
     justify-content: space-between;
@@ -53,7 +57,7 @@ export default function ProjectDetails(
         onDeleteTask(project.id, id);
     }
 
-    return <div>
+    return <ContainerMain>
         <header>
             <ContainerHeader>
                 <HeaderProject>{project.name}</HeaderProject>
@@ -72,7 +76,7 @@ export default function ProjectDetails(
                 {project.tasks.map((task, i) => <Task key={i} task={task} onDelete={handleDeleteTask}/>)}
             </ul>
         </section>
-    </div>
+    </ContainerMain>
 }
 
 ProjectDetails.propTypes = {

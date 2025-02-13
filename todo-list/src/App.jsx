@@ -6,8 +6,8 @@ import {styled} from "styled-components";
 import Sidebar from "./components/Sidebar.jsx";
 
 const Main = styled.main`
-    padding: 20px;
     flex: 1;
+    padding: 20px;
     margin-left: 60px;
 `
 
