@@ -25,11 +25,11 @@ const Label = styled(H3)`
 
 export default function Input({label, ...props}) {
     return <Container>
-        <Label>{label}</Label>
+        {label && <Label>{label}</Label>}
         <InputInternal {...props} />
     </Container>
 }
 
 Input.propTypes = {
-    label: PropTypes.string.isRequired
+    label: PropTypes.string
 }

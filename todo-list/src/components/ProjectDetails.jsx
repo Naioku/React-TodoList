@@ -3,6 +3,32 @@ import PropTypes from "prop-types";
 import {useRef} from "react";
 import Button from "./Button.jsx";
 import {H2, H3} from "./Headers.jsx";
+import Input from "./Input.jsx";
+import {styled} from "styled-components";
+
+const ContainerHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const HeaderProject = styled(H2)`
+    margin: 0;
+`
+
+const PDueDate = styled.p`
+    color: #888888;
+    margin: 0;
+`
+
+const HeaderTasks = styled(H3)`
+    text-align: left;
+`
+
+const ContainerAddTask = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`
 
 export default function ProjectDetails(
     {
@@ -29,17 +55,19 @@ export default function ProjectDetails(
 
     return <div>
         <header>
-            <div>
-                <H2>{project.name}</H2>
+            <ContainerHeader>
+                <HeaderProject>{project.name}</HeaderProject>
                 <Button onClick={handleClickedDelete}>Delete</Button>
-            </div>
-            <p>{project.dueDate}</p>
+            </ContainerHeader>
+            <PDueDate>{project.dueDate}</PDueDate>
             <p>{project.description}</p>
         </header>
         <section>
-            <H3>Tasks</H3>
-            <input ref={inputTaskName} type="text" />
-            <Button onClick={handleClickedAddTask}>Add Task</Button>
+            <HeaderTasks>Tasks</HeaderTasks>
+            <ContainerAddTask>
+                <Input ref={inputTaskName} type="text"/>
+                <Button onClick={handleClickedAddTask}>Add Task</Button>
+            </ContainerAddTask>
             <ul>
                 {project.tasks.map((task, i) => <Task key={i} task={task} onDelete={handleDeleteTask}/>)}
             </ul>
