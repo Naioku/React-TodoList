@@ -3,12 +3,12 @@ import {H3} from "./Headers.jsx";
 import {styled} from "styled-components";
 
 const Container = styled.div`
-    width: fit-content;
+    ${props => (props.$fillSpace ? "flex: 1" : "width: fit-content")};
 `
 
 const InputInternal = styled.input`
     height: 1.5rem;
-    width: 15rem;
+    width: ${props => (props.$fillSpace ? "100%" : "15rem")};
 
     &:focus {
         border: 2px solid #646cff;
@@ -24,9 +24,9 @@ const Label = styled(H3)`
 `
 
 export default function Input({label, ...props}) {
-    return <Container>
+    return <Container $fillSpace={label === undefined}>
         {label && <Label>{label}</Label>}
-        <InputInternal {...props} />
+        <InputInternal $fillSpace={label === undefined} {...props} />
     </Container>
 }
 

@@ -26,12 +26,27 @@ const PDueDate = styled.p`
 
 const HeaderTasks = styled(H3)`
     text-align: left;
+    margin-bottom: 0;
+`
+
+const Section = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 `
 
 const ContainerAddTask = styled.div`
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
+`
+
+const ContainerTasks = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
 `
 
 export default function ProjectDetails(
@@ -66,16 +81,16 @@ export default function ProjectDetails(
             <PDueDate>{project.dueDate}</PDueDate>
             <p>{project.description}</p>
         </header>
-        <section>
+        <Section>
             <HeaderTasks>Tasks</HeaderTasks>
             <ContainerAddTask>
                 <Input ref={inputTaskName} type="text"/>
                 <Button onClick={handleClickedAddTask}>Add Task</Button>
             </ContainerAddTask>
-            <ul>
+            <ContainerTasks>
                 {project.tasks.map((task, i) => <Task key={i} task={task} onDelete={handleDeleteTask}/>)}
-            </ul>
-        </section>
+            </ContainerTasks>
+        </Section>
     </ContainerMain>
 }
 

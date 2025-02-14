@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar.jsx";
 
 const Main = styled.main`
     flex: 1;
+    min-width: 0; /* Highly necessary for the flexbox, if any child's text overflows. */
     padding: 20px;
     margin-left: 60px;
 `
