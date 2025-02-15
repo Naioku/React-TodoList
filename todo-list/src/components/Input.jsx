@@ -9,12 +9,14 @@ const Container = styled.div`
 const InputInternal = styled.input`
     height: 1.5rem;
     width: ${props => (props.$fillSpace ? "100%" : "15rem")};
+    border: 2px solid ${props => (props.$isInvalid) ? "#ca6868" : "#636363"};
+    border-radius: 3px;
+    outline: none;
+    background-color: ${props => (props.$isInvalid) ? "#755050" : "#3b3b3b"};
+    
 
     &:focus {
-        border: 2px solid #646cff;
-        border-radius: 3px;
-        outline: none;
-        background-color: #3b3b3b;
+        border-color: #646cff;
     }
 `
 

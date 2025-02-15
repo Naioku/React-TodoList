@@ -1,10 +1,8 @@
-﻿import Task from "./Task.jsx";
-import PropTypes from "prop-types";
-import {useRef} from "react";
+﻿import PropTypes from "prop-types";
 import Button from "./Button.jsx";
-import {H2, H3} from "./Headers.jsx";
-import Input from "./Input.jsx";
+import {H2} from "./Headers.jsx";
 import {styled} from "styled-components";
+import Tasks from "./Tasks.jsx";
 
 const ContainerMain = styled.div`
     max-width: 60rem;
@@ -24,31 +22,6 @@ const PDueDate = styled.p`
     margin: 0;
 `
 
-const HeaderTasks = styled(H3)`
-    text-align: left;
-    margin-bottom: 0;
-`
-
-const Section = styled.section`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-`
-
-const ContainerAddTask = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-`
-
-const ContainerTasks = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.5rem;
-`
-
 export default function ProjectDetails(
     {
         project,
@@ -57,19 +30,8 @@ export default function ProjectDetails(
         onDeleteTask,
     }
 ) {
-    const inputTaskName = useRef();
-
     function handleClickedDelete() {
         onDelete(project.id);
-    }
-
-    function handleClickedAddTask() {
-        const newTaskId = project.lastUsedTaskId + 1
-        onAddTask(project.id, {id: newTaskId, name: inputTaskName.current.value}, newTaskId);
-    }
-
-    function handleDeleteTask(id) {
-        onDeleteTask(project.id, id);
     }
 
     return <ContainerMain>
@@ -81,16 +43,13 @@ export default function ProjectDetails(
             <PDueDate>{project.dueDate}</PDueDate>
             <p>{project.description}</p>
         </header>
-        <Section>
-            <HeaderTasks>Tasks</HeaderTasks>
-            <ContainerAddTask>
-                <Input ref={inputTaskName} type="text"/>
-                <Button onClick={handleClickedAddTask}>Add Task</Button>
-            </ContainerAddTask>
-            <ContainerTasks>
-                {project.tasks.map((task, i) => <Task key={i} task={task} onDelete={handleDeleteTask}/>)}
-            </ContainerTasks>
-        </Section>
+        <Tasks
+            projectId={project.id}
+            lastUsedTaskId={project.lastUsedTaskId}
+            tasks={project.tasks}
+            onAddTask={onAddTask}
+            onDeleteTask={onDeleteTask}
+        />
     </ContainerMain>
 }
 
