@@ -167,6 +167,7 @@ function App() {
         <>
             <Sidebar
                 projects={projectsState.projects}
+                selectedProjectId={projectsState.selectedProjectId}
                 onAddProject={startNewProjectCreation}
                 onProjectSelected={selectProject}
             />
