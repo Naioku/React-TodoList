@@ -12,42 +12,49 @@ const Main = styled.main`
     margin-left: 60px;
 `
 
-const PROJECTS = [
-    {
-        id: 0,
-        name: "Project 1",
-        dueDate: "2020-05-01",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
-        tasks: [
-            {id: 0, name: "Task 1"},
-            {id: 1, name: "Task 2"},
-            {id: 2, name: "Task 3"},
-            {id: 3, name: "Task 4"},
-            {id: 4, name: "Task 5"},
-        ],
-        lastUsedTaskId: 4
-    },
-    {
-        id: 1,
-        name: "Project 2",
-        dueDate: "2020-05-01",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
-        tasks: [
-            {id: 0, name: "Task 1"},
-            {id: 1, name: "Task 2"}
-        ],
-        lastUsedTaskId: 1
-    }
-]
+const TESTING_DATA = {
+    selectedProjectId: undefined,
+    lastUsedProjectId: 1,
+    projects: [
+        {
+            id: 0,
+            name: "Project 1",
+            dueDate: "2020-05-01",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
+            tasks: [
+                {id: 0, name: "Task 1"},
+                {id: 1, name: "Task 2"},
+                {id: 2, name: "Task 3"},
+                {id: 3, name: "Task 4"},
+                {id: 4, name: "Task 5"},
+            ],
+            lastUsedTaskId: 4
+        },
+        {
+            id: 1,
+            name: "Project 2",
+            dueDate: "2020-05-01",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tincidunt nunc iaculis, fringilla risus et, rhoncus enim. Donec enim leo, euismod quis ornare sit amet, gravida et turpis. Curabitur sodales euismod dictum. Integer ullamcorper diam in metus consequat, in fringilla ligula placerat. Sed justo massa, eleifend faucibus tempor in, vehicula in enim. Aenean efficitur pellentesque purus, vel aliquet lacus interdum non. Nulla ex sapien, pellentesque quis lacus dictum, egestas suscipit libero.",
+            tasks: [
+                {id: 0, name: "Task 1"},
+                {id: 1, name: "Task 2"}
+            ],
+            lastUsedTaskId: 1
+        }
+    ]
+}
 
-let lastUsedId = 1;
+// const STARTING_DATA = {
+//     selectedProjectId: undefined,
+//     lastUsedProjectId: -1,
+//     projects: []
+// }
 
 function App() {
-    const [projectsState, setProjectsState] = useState({
-        selectedProjectId: undefined,
-        projects: [...PROJECTS]
-        // projects: []
-    });
+    const [projectsState, setProjectsState] = useState(
+        TESTING_DATA,
+        // STARTING_DATA
+    );
 
     function startNewProjectCreation() {
         setProjectsState(prevState => ({
@@ -65,15 +72,16 @@ function App() {
 
     function addNewProject(project) {
         setProjectsState(prevState => {
-            const newProjectId = lastUsedId++;
+            const newProjectId = prevState.lastUsedProjectId + 1;
             project.id = newProjectId
             return ({
                 ...prevState,
+                selectedProjectId: newProjectId,
+                lastUsedProjectId: newProjectId,
                 projects: [
                     ...prevState.projects,
                     project
-                ],
-                selectedProjectId: newProjectId
+                ]
             });
         });
     }
