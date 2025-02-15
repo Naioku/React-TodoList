@@ -14,10 +14,6 @@ const Button = styled.button`
     &:hover {
         background-color: #393939;
     }
-
-    @media (prefers-color-scheme: light) {
-        background-color: #f9f9f9;
-    }
 `
 
 export default Button;

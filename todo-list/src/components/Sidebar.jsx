@@ -84,7 +84,7 @@ export const ButtonAddProject = styled(Button)`
     }
 `
 
-export default function Sidebar({projects, onAddProject, onProjectSelected}) {
+export default function Sidebar({projects, selectedProjectId, onAddProject, onProjectSelected}) {
     const [isExpanded, setExpanded] = React.useState(false);
 
     return <Aside
@@ -93,12 +93,18 @@ export default function Sidebar({projects, onAddProject, onProjectSelected}) {
     >
         <H2Sidebar>Your projects</H2Sidebar>
         <ButtonAddProject onClick={onAddProject}>+ Add project</ButtonAddProject>
-        <SidebarProjects projects={projects} onProjectSelected={onProjectSelected} isExpanded={isExpanded}/>
+        <SidebarProjects
+            projects={projects}
+            selectedProjectId={selectedProjectId}
+            onProjectSelected={onProjectSelected}
+            isExpanded={isExpanded}
+        />
     </Aside>
 }
 
 Sidebar.propTypes = {
     projects: PropTypes.array.isRequired,
+    selectedProjectId: PropTypes.number.isRequired,
     onAddProject: PropTypes.func.isRequired,
     onProjectSelected: PropTypes.func.isRequired
 }
