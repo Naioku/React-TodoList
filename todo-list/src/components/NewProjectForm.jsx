@@ -1,6 +1,25 @@
 ﻿import Input from "./Input.jsx";
 import {useRef} from "react";
 import PropTypes from "prop-types";
+import Button from "./Button.jsx";
+import {styled} from "styled-components";
+
+const ButtonLeft = styled(Button)`
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+`
+
+const ButtonRight = styled(Button)`
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+`
+
+const ContainerInput = styled.div`
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`
 
 export default function NewProjectForm({onCancel, onSave}) {
     const inputName = useRef();
@@ -25,12 +44,14 @@ export default function NewProjectForm({onCancel, onSave}) {
 
     return <div>
         <div>
-            <button onClick={handleClickCancel}>Cancel</button>
-            <button onClick={handleClickSave}>Save</button>
+            <ButtonLeft onClick={handleClickCancel}>Cancel</ButtonLeft>
+            <ButtonRight onClick={handleClickSave}>Save</ButtonRight>
         </div>
-        <Input ref={inputName} label={"Name"} type="text" />
-        <Input ref={inputDescription} label={"Description"} type="text" />
-        <Input ref={inputDueDate} label={"Due date"} type="date" />
+        <ContainerInput>
+            <Input ref={inputName} label={"Name"} type="text"/>
+            <Input ref={inputDescription} label={"Description"} type="text"/>
+            <Input ref={inputDueDate} label={"Due date"} type="date"/>
+        </ContainerInput>
     </div>
 }
 

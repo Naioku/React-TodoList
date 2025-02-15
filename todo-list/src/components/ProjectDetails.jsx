@@ -1,6 +1,53 @@
 ﻿import Task from "./Task.jsx";
 import PropTypes from "prop-types";
 import {useRef} from "react";
+import Button from "./Button.jsx";
+import {H2, H3} from "./Headers.jsx";
+import Input from "./Input.jsx";
+import {styled} from "styled-components";
+
+const ContainerMain = styled.div`
+    max-width: 60rem;
+`
+
+const ContainerHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const HeaderProject = styled(H2)`
+    margin: 0;
+`
+
+const PDueDate = styled.p`
+    color: #888888;
+    margin: 0;
+`
+
+const HeaderTasks = styled(H3)`
+    text-align: left;
+    margin-bottom: 0;
+`
+
+const Section = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`
+
+const ContainerAddTask = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+`
+
+const ContainerTasks = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+`
 
 export default function ProjectDetails(
     {
@@ -25,24 +72,26 @@ export default function ProjectDetails(
         onDeleteTask(project.id, id);
     }
 
-    return <div>
+    return <ContainerMain>
         <header>
-            <div>
-                <h2>{project.name}</h2>
-                <button onClick={handleClickedDelete}>Delete</button>
-            </div>
-            <p>{project.dueDate}</p>
+            <ContainerHeader>
+                <HeaderProject>{project.name}</HeaderProject>
+                <Button onClick={handleClickedDelete}>Delete</Button>
+            </ContainerHeader>
+            <PDueDate>{project.dueDate}</PDueDate>
             <p>{project.description}</p>
         </header>
-        <section>
-            <h3>Tasks</h3>
-            <input ref={inputTaskName} type="text" />
-            <button onClick={handleClickedAddTask}>Add Task</button>
-            <ul>
+        <Section>
+            <HeaderTasks>Tasks</HeaderTasks>
+            <ContainerAddTask>
+                <Input ref={inputTaskName} type="text"/>
+                <Button onClick={handleClickedAddTask}>Add Task</Button>
+            </ContainerAddTask>
+            <ContainerTasks>
                 {project.tasks.map((task, i) => <Task key={i} task={task} onDelete={handleDeleteTask}/>)}
-            </ul>
-        </section>
-    </div>
+            </ContainerTasks>
+        </Section>
+    </ContainerMain>
 }
 
 ProjectDetails.propTypes = {
